@@ -69,6 +69,27 @@ def add_commit_msg(objs, msg):
     print ("Updated CMT_MSG:" + msg)
 
 
+def add_commit_src(objs, src):
+    date = str(datetime.datetime.now().strftime("%y%m%d"))
+    key = []
+    srcname = []
+    if src is None:
+        pass
+    else:
+        for i in range(len(objs)):
+            key.append("CMT_SRC")
+            srcname.append(src + "_" + date)
+            sn0 = str(srcname)
+            sn1 = sn0.replace("[", "")
+            sn2 = sn1.replace("]", "")
+            sn3 = sn2.replace("'", "")
+
+            rs.SetUserText(objs[i], key[i], sn3)
+
+        print ("Updated CMT_MSG:" + sn3)
+
+
+
 def add_commit_ghsrc(objs):
     date = str(datetime.datetime.now().strftime("%y%m%d"))
 
@@ -100,12 +121,15 @@ def add_commit_ghsrc(objs):
 
 def RunCommand( is_interactive ):
     operator = os.environ.get('USERNAME')
+    src = rs.StringBox("Enter source file name or 'escape key'")
     msg = rs.StringBox("Enter message")
     objs = rs.GetObjects("Select objects")
     ver = add_commit_version(objs)
 
     add_commit_date(objs)
     add_commit_operator(objs, operator)
+    add_commit_src(objs, src)
     add_commit_msg(objs, msg)
     add_commit_ghsrc(objs)
+
 
