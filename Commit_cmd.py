@@ -79,7 +79,6 @@ def add_commit_src(objs, src):
     else:
         for i in range(len(objs)):
             key.append("CMT_SRC")
-            print(src)
             srcname = src + "_" + date
 
             rs.SetUserText(objs[i], key[i], srcname)
